@@ -11,6 +11,7 @@ package org.openmrs.web;
 
 import java.util.Collection;
 import java.util.Locale;
+import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,6 +22,52 @@ import org.openmrs.BaseOpenmrsObject;
  */
 public class WebUtilTest {
 	
+
+	/*
+	 * Add to achieve clause coverage of predicate (c<=0x20 ||... in normalizedLocal method. 
+	 * 	C1: c <= 0x20
+	 * 	C2: c >= 0x7f
+	 * 	C3: c >= 0x20
+	 * 	C4: c <= 0x7f
+	 * 	C5: Character.isLetter(c)
+	 * 	C6: c != 0x5f
+	 */
+	 
+	@Test
+	public void normalizeLocalC1T_C2F_C3F_C4T_C5F(){
+		byte[] bytes = {0x11};
+		try{
+		    String s = new String(bytes, "ASCII");
+		    Assert.assertEquals(null, WebUtil.normalizeLocale(s));
+		}
+		catch(IOException ioe){
+		
+		}
+	}
+	@Test
+	public void normalizeLocalC1F_C2T_C3T_C4F_C5F(){
+		Assert.assertEquals(null, WebUtil.normalizeLocale("Ši"));
+	}
+	@Test
+	public void normalizeLocalC5T(){
+		Assert.assertEquals(null, WebUtil.normalizeLocale("s"));
+	}
+	@Test
+	public void normalizeLocalC6T(){
+		byte[] bytes = {0x5f};
+                try{
+		    String s = new String(bytes, "ASCII");
+		    Assert.assertEquals(null, WebUtil.normalizeLocale(s));
+		}
+		catch(IOException ioe){
+		
+		}
+	}
+
+
+
+	
+
 	/**
 	 * @see org.openmrs.web.WebUtil#getContextPath()
 	 * @verifies should return empty string if webappname is null
