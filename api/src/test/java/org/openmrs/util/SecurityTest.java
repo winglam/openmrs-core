@@ -21,6 +21,16 @@ import org.springframework.util.StringUtils;
 public class SecurityTest {
 	
 	private static final int HASH_LENGTH = 128;
+
+	/**
+ 	* Test added by Dengfeng(Davis) Li 
+ 	*/
+	@Test
+	@Verifies(value = "generate cipher initialization vector with lenght of 16 bytes", method = "generateNewInitVector()")
+	public void generateInitVector() throws Exception{
+		byte[] vector = Security.generateNewInitVector();
+		Assert.assertEquals(16, vector.length);
+	}
 	
 	/**
 	 * @see Security#encodeString(String)
