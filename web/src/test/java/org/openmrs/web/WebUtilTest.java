@@ -34,39 +34,28 @@ public class WebUtilTest {
 	 */
 	 
 	@Test
-	public void normalizeLocalC1T_C2F_C3F_C4T_C5F(){
+	public void normalizeLocalC1T_C2F_C3F_C4T_C5F() throws IOException{
 		byte[] bytes = {0x11};
-		try{
-		    String s = new String(bytes, "ASCII");
-		    Assert.assertEquals(null, WebUtil.normalizeLocale(s));
-		}
-		catch(IOException ioe){
-		
-		}
+		String s = new String(bytes, "ASCII");
+		Assert.assertEquals(null, WebUtil.normalizeLocale(s));
 	}
+
 	@Test
 	public void normalizeLocalC1F_C2T_C3T_C4F_C5F(){
 		Assert.assertEquals(null, WebUtil.normalizeLocale("Ši"));
 	}
+
 	@Test
 	public void normalizeLocalC5T(){
 		Assert.assertEquals(null, WebUtil.normalizeLocale("s"));
 	}
+
 	@Test
-	public void normalizeLocalC6T(){
+	public void normalizeLocalC6T() throws IOException{
 		byte[] bytes = {0x5f};
-                try{
-		    String s = new String(bytes, "ASCII");
-		    Assert.assertEquals(null, WebUtil.normalizeLocale(s));
-		}
-		catch(IOException ioe){
-		
-		}
+		String s = new String(bytes, "ASCII");
+		Assert.assertEquals(null, WebUtil.normalizeLocale(s));
 	}
-
-
-
-	
 
 	/**
 	 * @see org.openmrs.web.WebUtil#getContextPath()
